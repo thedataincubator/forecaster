@@ -13,7 +13,7 @@ def create_app(prophet_url, secret_key, bokeh_version):
     """create a flask app"""
     app = Flask(__name__)
 
-    @app.route('/')
+    @app.route('/predict')
     def index(): # pylint: disable=W0612
         """main route"""
         # Replace with API call to whatever service
