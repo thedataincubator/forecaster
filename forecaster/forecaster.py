@@ -7,6 +7,8 @@ import pandas as pd
 from bokeh.plotting import figure
 from bokeh.embed import components
 
+FAKE_API_KEY = "IHYRLSuaJAfQALjtq0ThWW8IInjEfaVdy6F3l6od60c="
+
 def create_app(prophet_url, secret_key, bokeh_version):
     """create a flask app"""
     app = Flask(__name__)
