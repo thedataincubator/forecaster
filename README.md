@@ -13,3 +13,5 @@ Some useful commands:
 - Push new branch `git push --set-upstream origin branch_name`
 - Switch branches `git checkout branch_name`
 - Rebase on master `git rebase master`
+
+This is a Python 3 application
