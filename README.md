@@ -6,7 +6,7 @@ To get started clone the repo locally and
 3. Make a branch (or two or three or ...) and open up a PR with a change you like.  Some issues will already have PRs open, just push to those branches!
 4. Ask for a review from a peer.
 5. Ask for a review from Zach, Tim or Dylan.
-6. Once both reviews are passed, MERGE AWAY!
+6. Once both reviews are passed, an instructor will merge.
 
 Some useful commands:
 - Checkout new branch `git checkout -b branch_name`
