@@ -15,5 +15,3 @@ Some useful commands:
 - Rebase on master `git rebase master`
 
 This is a Python 3 application
-
-Zach totally had time to demo a PR. I dunno why I'm doing this.
