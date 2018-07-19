@@ -14,7 +14,7 @@ def create_app(prophet_url, secret_key, bokeh_version):
     app = Flask(__name__)
 
     @app.route('/')
-    def landing():  # pylint: diasable=W0612
+    def landing():  # pylint: disable=W0612
         text = "<p>Welcome to our forecaster!</p>"
         return render_template('index.html', div=text)
 
