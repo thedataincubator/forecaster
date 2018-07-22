@@ -5,10 +5,10 @@ sudo: required
 services:
 - docker
 script:
-- docker build
+- docker build .
 after_success:
 # - export HEROKU_TOKEN=$(heroku auth:token)
 - docker login -u _ -p "$HEROKU_TOKEN" registry.heroku.com
-- docker build -t registry.heroku.com/tdi-forecaster/web -f Dockerfile.production
+- docker build -t registry.heroku.com/tdi-forecaster/web -f Dockerfile.production .
 - docker push registry.heroku.com/tdi-forecaster/web
 - heroku run --app tdi-forecaster
