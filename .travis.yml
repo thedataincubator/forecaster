@@ -1,28 +1,14 @@
 language: python
 python:
 - '3.6'
-install:
-- sudo apt-get update
-- if [[ "$TRAVIS_PYTHON_VERSION" == "2.7" ]]; then wget https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh
-  -O miniconda.sh; else wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
-  -O miniconda.sh; fi
-- bash miniconda.sh -b -p $HOME/miniconda
-- export PATH="$HOME/miniconda/bin:$PATH"
-- hash -r
-- conda config --set always_yes yes --set changeps1 no
-- conda update -q conda
-- conda info -a
-- conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION
-- source activate test-environment
-- conda install --file conda-requirements.txt --yes
-- pip install -r requirements.txt
-- pip install -r dev-requirements.txt
+sudo: required
+services:
+- docker
 script:
-- source activate test-environment
-- nosetests -v tests
-- pylint forecaster
-deploy:
-  provider: heroku
-  app: tdi-forecaster
-  api_key:
-    secure: Tot+dVWivMGQrkhhpWynyCEOPwYF7G2p0Z2mzziJR3/V+W/D9HnvAJ7f31UYbf0aZfhvWHVAJVw410vtTp91RxE47PjCaYw777U0C7cUiOWvMeud0GiFdOC/4ySXutbCBl013EX+q5ZbqTJaXYcYsDOh2OGDbDRiwGCgNkoaGp3KQS8esvRrzkmAttWsVqSJzPo/l4X0HonwTp5MTvV17BqafmazCVjYZTelUz0mWzbWno4H3JAbT4+/4RIwTKkPLG8YASvX2SLWICd6FhdvRfY880Gh+P+bvMPnYdgJ+v4xEyj+opzrYZbZ3+DoaWc+geDJm/QXtqhi/n4h8KZEfmgmtG81nzoB+P3USUD7iMKpORYHgi25jWhnzUUld27cV1LXxgw9Vl8JMUe0SQHwsOsNRoruaQPUkGuSZoYSC95Z91q1eEMgM1vZaILl9p2PnFQkNQcSCyvprh2EfQn1BTFzrdt0XWQ9UFB6QOiCQ0SGugdK78td1pKEz1NSVnH0nyEOonwjxaML3fVL2ugaHEXvzdMLD3/BDRspmBbOtC1leuTrgrj5EQSBuv54AqdHjf+3nq6myE5rizffEyd4N7c3ay66MkUGxQa8xXz/RZKxdZlo+ivQ0yjUvub/G3t4n9yzrAX9i9WcbFTzWwfAErPvIXytEuQHFwCV+1MqLgI=
+- docker build
+after_success:
+# - export HEROKU_TOKEN=$(heroku auth:token)
+- docker login -u _ -p "$HEROKU_TOKEN" registry.heroku.com
+- docker build -t registry.heroku.com/tdi-forecaster/web -f Dockerfile.production
+- docker push registry.heroku.com/tdi-forecaster/web
+- heroku run --app tdi-forecaster
