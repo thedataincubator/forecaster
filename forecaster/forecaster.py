@@ -15,12 +15,13 @@ def create_app(prophet_url, secret_key, bokeh_version):
 
     @app.route('/')
     def landing():  # pylint: disable=W0612
+        """main route"""
         text = "<p>Welcome to our forecaster!</p>"
         return render_template('index.html', div=text)
 
     @app.route('/predict')
     def index(): # pylint: disable=W0612
-        """main route"""
+        """prediction route"""
         # Replace with API call to whatever service
         df = pd.read_csv('static/GOOGL_data.txt') # pylint: disable=C0103
 
