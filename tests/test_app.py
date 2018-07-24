@@ -17,7 +17,7 @@ class TestApp(unittest.TestCase):
         responses.add(responses.POST, self.url,
                       json={'error': 'not found'}, 
                       status=404)
-        res = self.app.get('/')
+        res = self.app.get('/predict')
         self.assertEqual(res.status_code, 404)
 
     @responses.activate
@@ -26,5 +26,5 @@ class TestApp(unittest.TestCase):
                       json={'ds': [1,2,3,4],
                             'yhat': [2,3,4,5]},
                       status=200)
-        res = self.app.get('/')
+        res = self.app.get('/predict')
         self.assertEqual(res.status_code, 200)
